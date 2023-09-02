@@ -1,0 +1,19 @@
+FROM alpine:latest as builder
+
+RUN apk update && apk upgrade
+RUN apk add --update npm
+
+WORKDIR '/app'
+
+COPY package*.json ./
+
+RUN npm ci
+
+COPY . .
+RUN npx ng build nm_web_server
+
+FROM nginx:latest
+EXPOSE 80
+
+COPY --from=builder /app/dist/nm_web_server /usr/share/nginx/html
+COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf

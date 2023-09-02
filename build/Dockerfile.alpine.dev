@@ -1,0 +1,15 @@
+FROM alpine:latest
+
+RUN apk update && apk upgrade
+RUN apk add --update npm
+
+WORKDIR '/app'
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+EXPOSE 4200
+
+CMD ["npm", "start"]
