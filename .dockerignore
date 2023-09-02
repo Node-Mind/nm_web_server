@@ -1,0 +1,9 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Hidden project files
+node_modules
+.git
+.gitignore
+dist
