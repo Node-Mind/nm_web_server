@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/name: nm-web-server
     app.kubernetes.io/part-of: nm
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/component: server
@@ -21,9 +21,11 @@ spec:
         app.kubernetes.io/name: nm-web-server
         app.kubernetes.io/part-of: nm
     spec:
+      imagePullSecrets:
+      - name: regcred
       containers:
       - name: nm-web-server
-        image: localhost:5005/nm/nm_web_server
+        image: localhost:5005/nm/nm_web_server:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
